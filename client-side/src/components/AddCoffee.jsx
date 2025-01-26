@@ -1,5 +1,7 @@
+import Swal from "sweetalert2";
+
 const AddCoffee = () => {
-    const handleAddCoffee = e=>{
+    const handleAddCoffee = e => {
         e.preventDefault()
         const form = e.target;
         const name = form.name.value;
@@ -9,8 +11,46 @@ const AddCoffee = () => {
         const category = form.category.value;
         const photo = form.photo.value;
 
-        console.log(name,quantity,supplier, taste, category, photo)
+        const newCoffee = { name, quantity, supplier, taste, category, photo }
+        console.log(newCoffee)
+
+       
+        // send data to server
+        fetch('http://localhost:5000/coffee', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(newCoffee)
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log('Server response:', data); // Log the server response
+            if (data.insertedId) { // Ensure the property name matches the server response
+                Swal.fire({
+                    title: "Success!",
+                    text: "Your coffee has been added.",
+                    icon: "success"
+                });
+            } else {
+                Swal.fire({
+                    title: "Error!",
+                    text: "There was an issue adding your coffee.",
+                    icon: "error"
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            Swal.fire({
+                title: "Error!",
+                text: "There was an issue adding your coffee.",
+                icon: "error"
+            });
+        });
     }
+
+
     return (
         <div className="bg-[#f4f3f0] p-24">
             <form onSubmit={handleAddCoffee}>

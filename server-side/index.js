@@ -8,7 +8,7 @@ const port = process.env.PORT || 5000;
 
 // middleWare
 app.use(cors())
-app.use(express())
+app.use(express.json())
 
 const uri = `mongodb+srv://${process.env.DB_user}:${process.env.DB_pass}@cluster0.eko35.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 
@@ -25,6 +25,17 @@ async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
+
+    const coffeCollection = client.db('coffeeDB').collection('coffee')
+
+    //data received by req.body and send to mongoDB by res.send//
+    app.post('/coffee', async (req,res)=>{
+      const newCoffee = req.body;
+      console.log(newCoffee)
+      const result = await coffeCollection.insertOne(newCoffee)
+      res.send(result)
+    })
+
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
