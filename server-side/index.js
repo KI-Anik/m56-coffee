@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors')
 require('dotenv').config()
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 
 const app = express()
 const port = process.env.PORT || 5000;
@@ -28,11 +28,27 @@ async function run() {
 
     const coffeCollection = client.db('coffeeDB').collection('coffee')
 
+    // data collect from mongoDB
+    app.get('/coffee', async (req,res)=>{
+      const cursor = coffeCollection.find()
+      const result = await cursor.toArray()
+      res.send(result)
+    })
+
+    
+
     //data received by req.body and send to mongoDB by res.send//
     app.post('/coffee', async (req,res)=>{
       const newCoffee = req.body;
       console.log(newCoffee)
       const result = await coffeCollection.insertOne(newCoffee)
+      res.send(result)
+    })
+
+    app.delete('/coffee/:id', async (req,res)=>{
+      const id = req.params.id;
+      const query = {_id: new ObjectId(id)}
+      const result = await coffeCollection.deleteOne(query)
       res.send(result)
     })
 
