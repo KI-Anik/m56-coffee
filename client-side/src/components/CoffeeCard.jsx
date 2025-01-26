@@ -1,10 +1,12 @@
+/* eslint-disable react/prop-types */
 import { AiOutlineDelete } from "react-icons/ai";
 import { FaEye } from "react-icons/fa";
 import { CiEdit } from "react-icons/ci";
 import Swal from "sweetalert2";
+import { Link } from "react-router";
 
 const CoffeeCard = ({ coffee }) => {
-    const { _id, name, quantity, supplier, taste, category, photo } = coffee
+    const { _id, name, quantity, supplier, taste, photo } = coffee
 
     const handleDelete = id => {
         console.log(id)
@@ -19,7 +21,7 @@ const CoffeeCard = ({ coffee }) => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:5000/coffee/${id}`,{
+                fetch(`http://localhost:5000/coffee/${id}`, {
                     method: 'DELETE'
                 })
                     .then(res => res.json())
@@ -51,7 +53,9 @@ const CoffeeCard = ({ coffee }) => {
                 <div className="card-actions justify-end">
                     <div className="join join-vertical space-y-2">
                         <button className="btn join-item text-2xl"> <FaEye /> </button>
-                        <button className="btn join-item text-2xl"><CiEdit /></button>
+                        <Link to={`/updateCoffee/${_id}`}>
+                            <button className="btn join-item text-2xl"><CiEdit /></button>
+                        </Link>
                         <button onClick={() => handleDelete(_id)} className="btn join-item text-2xl bg-orange-500"> <AiOutlineDelete /> </button>
                     </div>
                 </div>

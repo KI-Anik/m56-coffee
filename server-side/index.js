@@ -35,7 +35,12 @@ async function run() {
       res.send(result)
     })
 
-    
+    app.get('/coffee/:id', async(req,res)=>{
+      const id = req.params.id;
+      const query = {_id: new ObjectId(id)}
+      const result = await coffeCollection.findOne(query)
+      res.send(result)
+    })
 
     //data received by req.body and send to mongoDB by res.send//
     app.post('/coffee', async (req,res)=>{

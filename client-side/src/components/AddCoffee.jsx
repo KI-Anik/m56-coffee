@@ -9,12 +9,13 @@ const AddCoffee = () => {
         const supplier = form.supplier.value;
         const taste = form.taste.value;
         const category = form.category.value;
+        const details = form.details.value;
         const photo = form.photo.value;
 
-        const newCoffee = { name, quantity, supplier, taste, category, photo }
+        const newCoffee = { name, quantity, supplier, taste, category, details, photo }
         console.log(newCoffee)
 
-       
+
         // send data to server
         fetch('http://localhost:5000/coffee', {
             method: 'POST',
@@ -23,31 +24,31 @@ const AddCoffee = () => {
             },
             body: JSON.stringify(newCoffee)
         })
-        .then(res => res.json())
-        .then(data => {
-            console.log('Server response:', data); // Log the server response
-            if (data.insertedId) { // Ensure the property name matches the server response
-                Swal.fire({
-                    title: "Success!",
-                    text: "Your coffee has been added.",
-                    icon: "success"
-                });
-            } else {
+            .then(res => res.json())
+            .then(data => {
+                console.log('Server response:', data); // Log the server response
+                if (data.insertedId) { // Ensure the property name matches the server response
+                    Swal.fire({
+                        title: "Success!",
+                        text: "Your coffee has been added.",
+                        icon: "success"
+                    });
+                } else {
+                    Swal.fire({
+                        title: "Error!",
+                        text: "There was an issue adding your coffee.",
+                        icon: "error"
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
                 Swal.fire({
                     title: "Error!",
                     text: "There was an issue adding your coffee.",
                     icon: "error"
                 });
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            Swal.fire({
-                title: "Error!",
-                text: "There was an issue adding your coffee.",
-                icon: "error"
             });
-        });
     }
 
 
