@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 import { Link } from "react-router";
 
 const CoffeeCard = ({ coffee }) => {
-    const { _id, name, quantity, supplier, taste, photo } = coffee
+    const { _id, name, quantity, supplier, taste,details, photo } = coffee
 
     const handleDelete = id => {
         console.log(id)
@@ -50,6 +50,7 @@ const CoffeeCard = ({ coffee }) => {
                 <p>{quantity}</p>
                 <p>{supplier}</p>
                 <p>{taste}</p>
+                <p>{details}</p>
                 <div className="card-actions justify-end">
                     <div className="join join-vertical space-y-2">
                         <button className="btn join-item text-2xl"> <FaEye /> </button>

@@ -5,7 +5,6 @@ const UpdateCoffee = () => {
     const coffee = useLoaderData()
     const { _id, name, quantity, supplier, taste, details, category, photo } = coffee
 
-
     const handleUpdateCoffee = e => {
         e.preventDefault()
         const form = e.target;
@@ -20,7 +19,6 @@ const UpdateCoffee = () => {
         const updatedCoffee = { name, quantity, supplier, taste, category, details, photo }
         console.log(updatedCoffee)
 
-
         // send data to server
         fetch(`http://localhost:5000/coffee/${_id}`, {
             method: 'PUT',
@@ -32,7 +30,7 @@ const UpdateCoffee = () => {
             .then(res => res.json())
             .then(data => {
                 console.log('Server response:', data); // Log the server response
-                if (data.insertedId) { // Ensure the property name matches the server response
+                if (data.modifiedCount) { // Ensure the property name matches the server response
                     Swal.fire({
                         title: "Success!",
                         text: "Your coffee updated Successfully.",
