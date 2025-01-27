@@ -5,11 +5,12 @@ import { CiEdit } from "react-icons/ci";
 import Swal from "sweetalert2";
 import { Link } from "react-router";
 
-const CoffeeCard = ({ coffee }) => {
-    const { _id, name, quantity, supplier, taste,details, photo } = coffee
+const CoffeeCard = ({ coffee, coffees, setCoffees }) => {
+    const { _id, name, quantity, supplier, taste, details, photo } = coffee
 
     const handleDelete = id => {
-        console.log(id)
+        console.log('Deleting id :', id)
+        console.log('before filter :', coffees)
 
         Swal.fire({
             title: "Are you sure?",
@@ -33,6 +34,10 @@ const CoffeeCard = ({ coffee }) => {
                                 text: "Your file has been deleted.",
                                 icon: "success"
                             });
+                            const remaining = coffees.filter(cof => cof._id !== id)
+                            setCoffees(remaining)
+                            console.log('after filter : ', remaining)
+                            
                         }
                     })
             }
