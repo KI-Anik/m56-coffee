@@ -1,11 +1,13 @@
 import { NavLink } from "react-router";
 
-const Navabar = () => {
+const Header = () => {
 
-    const links = <div className="gap-5">
-        <NavLink to={'/'}>Home</NavLink>
-        <NavLink to={'/addCoffee'}>Add Coffee</NavLink>
-    </div>
+    const links = <>
+        <li> <NavLink to={'/'}>Home</NavLink></li>
+        <li> <NavLink to={'/addCoffee'}>Add Coffee</NavLink></li>
+        <li><NavLink to={'signIn'}>SignIn</NavLink> </li>
+        <li><NavLink to={'signUp'}>SignUp</NavLink> </li>
+    </>
     return (
         <div>
             <div className="navbar bg-base-100">
@@ -46,4 +48,4 @@ const Navabar = () => {
     );
 };
 
-export default Navabar;
+export default Header;

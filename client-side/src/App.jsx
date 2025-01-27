@@ -1,5 +1,4 @@
 import { useLoaderData } from 'react-router'
-import './App.css'
 import CoffeeCard from './components/CoffeeCard'
 import { useState } from 'react'
 

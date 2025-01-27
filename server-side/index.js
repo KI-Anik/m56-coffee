@@ -12,6 +12,8 @@ app.use(express.json())
 
 const uri = `mongodb+srv://${process.env.DB_user}:${process.env.DB_pass}@cluster0.eko35.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 
+// const uri = `mongodb://${process.env.DB_user}:${process.env.DB_pass}@cluster0-shard-00-00.eko35.mongodb.net:27017,cluster0-shard-00-01.eko35.mongodb.net:27017,cluster0-shard-00-02.eko35.mongodb.net:27017/?ssl=true&replicaSet=atlas-js9j9t-shard-0&authSource=admin&retryWrites=true&w=majority&appName=Cluster0`
+
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
   serverApi: {
