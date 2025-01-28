@@ -83,7 +83,7 @@ async function run() {
     })
 
     //users realated api"s 
-    app.get('/users', async(req,res)=>{
+    app.get('/users', async (req, res) => {
       const cursor = userCollection.find()
       const result = await cursor.toArray()
       res.send(result)
@@ -97,9 +97,21 @@ async function run() {
       res.send(result)
     })
 
-    app.delete('/users/:id', async (req,res)=>{
+    app.patch('/users', async (req, res) => {
+      const email = req.body.email;
+      const filter = { email }
+      const updateDoc = {
+        $set: {
+          lastSignInTime: req.body?.lastSignInTime
+        }
+      }
+      const result = await userCollection.updateOne(filter, updateDoc)
+      res.send(result)
+    })
+    
+    app.delete('/users/:id', async (req, res) => {
       const id = req.params.id;
-      const query = {_id: new ObjectId (id)}
+      const query = { _id: new ObjectId(id) }
       const result = await userCollection.deleteOne(query)
       res.send(result)
     })

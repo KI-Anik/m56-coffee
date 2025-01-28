@@ -6,7 +6,7 @@ const Users = () => {
     const loadedUsers = useLoaderData()
     const [users, setUsers] = useState(loadedUsers)
 
-    const handleDelete = id => {
+    const handleDeleteUser = id => {
         console.log(id)
 
         Swal.fire({
@@ -55,6 +55,7 @@ const Users = () => {
                             <th>Name</th>
                             <th>Email</th>
                             <th>Created At</th>
+                            <th>last Sign in</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -66,9 +67,10 @@ const Users = () => {
                                 <td>{user.name}</td>
                                 <td>{user.email}</td>
                                 <td>{user.createdAt}</td>
+                                <td>{user.lastSignInTime}</td>
                                 <td>
                                     <button className="btn">edit</button>
-                                    <button onClick={() => handleDelete(user._id)} className="btn">X</button>
+                                    <button onClick={() => handleDeleteUser(user._id)} className="btn">X</button>
                                 </td>
                             </tr>)
                         }
