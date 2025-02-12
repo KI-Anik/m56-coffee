@@ -22,7 +22,7 @@ const SIgnUp = () => {
         //save newUser info to the dataBase, start.
         const createdAt = result.user?.metadata?.creationTime
         const newUser = { name, email, createdAt }
-        fetch('http://localhost:5000/users', {
+        fetch('https://m-56-coffee-server.vercel.app/users', {
           method: 'POST',
           headers: {
             'content-type': 'application/json'
