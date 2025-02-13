@@ -21,7 +21,7 @@ const Users = () => {
             if (result.isConfirmed) {
 
                 // delete from the database
-                fetch(`https://m-56-coffee-server.vercel.app/users/${id}`, {
+                fetch(`http://localhost:5000/users/${id}`, {
                     method: 'DELETE'
                 })
                     .then(res => res.json())
@@ -62,8 +62,8 @@ const Users = () => {
                     <tbody>
                         {/* row 1 */}
                         {
-                            users.map(user => <tr key={user._id}>
-                                <th>1</th>
+                            users.map((user, idx) => <tr key={user._id}>
+                                <th>{idx+1}</th>
                                 <td>{user.name}</td>
                                 <td>{user.email}</td>
                                 <td>{user.createdAt}</td>

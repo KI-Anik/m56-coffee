@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
+import axios from "axios";
 
 const Signin = () => {
     const { signIn } = useContext(AuthContext)
@@ -16,21 +17,27 @@ const Signin = () => {
             .then(res => {
                 console.log('signed in', res.user)
 
-                 //update last login time
-                 const lastSignInTime = res?.user?.metadata?.lastSignInTime;
-                 const loginInfo = { email, lastSignInTime}
+                //update last login time
+                const lastSignInTime = res?.user?.metadata?.lastSignInTime;
+                const loginInfo = { email, lastSignInTime }
 
-                 fetch('https://m-56-coffee-server.vercel.app/users',{
-                    method: 'PATCH',
-                    headers:{
-                        'content-type': 'application/json'
-                    },
-                    body: JSON.stringify(loginInfo)
-                 })
-                 .then(res=>res.json())
-                 .then(data =>{
-                    console.log('sign in time uploaded to db', data)
-                 })
+                // using axios alternative of fetch
+                axios.patch('http://localhost:5000/users', loginInfo)
+                    .then(data => {
+                        console.log(data.data)
+                    })
+
+                //  fetch('http://localhost:5000/users',{
+                //     method: 'PATCH',
+                //     headers:{
+                //         'content-type': 'application/json'
+                //     },
+                //     body: JSON.stringify(loginInfo)
+                //  })
+                //  .then(res=>res.json())
+                //  .then(data =>{
+                //     console.log('sign in time uploaded to db', data)
+                //  })
             })
             .catch(err => console.log('ERROR', err.message))
     }

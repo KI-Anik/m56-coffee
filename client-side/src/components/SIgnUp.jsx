@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
+import axios from 'axios';
 
 const SIgnUp = () => {
 
@@ -19,23 +20,31 @@ const SIgnUp = () => {
       .then(result => {
         console.log('user created at firebase: ', result.user)
 
-        //save newUser info to the dataBase, start.
+        //save newUser info to the dataBase, start. 
         const createdAt = result.user?.metadata?.creationTime
         const newUser = { name, email, createdAt }
-        fetch('https://m-56-coffee-server.vercel.app/users', {
-          method: 'POST',
-          headers: {
-            'content-type': 'application/json'
-          },
-          body: JSON.stringify(newUser)
+
+        // using axios
+        axios.post('http://localhost:5000/users', newUser)
+        .then(data=>{
+          console.log(data.data)
         })
-          .then(res => res.json())
-          .then(data => {
-            console.log('user created to database: ', data)
-            if (data.insertedId) {
-              alert('sign UP successfull')
-            }
-          })
+
+        // using fetch
+        // fetch('http://localhost:5000/users', {
+        //   method: 'POST',
+        //   headers: {
+        //     'content-type': 'application/json'
+        //   },
+        //   body: JSON.stringify(newUser)
+        // })
+        //   .then(res => res.json())
+        //   .then(data => {
+        //     console.log('user created to database: ', data)
+        //     if (data.insertedId) {
+        //       alert('sign UP successfull')
+        //     }
+        //   })
         //save newUser info to the dataBase, end.
       })
       .catch(err => {
